@@ -9,12 +9,13 @@ import icono from "../assets/Weather-icon.png";
 // ICONS
 import { FaLocationDot } from "react-icons/fa6";
 import { FaSearch, FaWind } from "react-icons/fa";
+import { LuWaves } from "react-icons/lu";
 
 function App() {
   return (
     <div className="flex items-center justify-center container mx-auto h-screen">
       <div
-        className="bg-green-400 w-1/3 h-3/4 flex flex-col items-center justify-center rounded-lg border border-white"
+        className="bg-white/25 blur-bg w-1/3 h-3/4 flex flex-col items-center justify-center rounded-lg border border-white"
         id="weather-box"
       >
         <div
@@ -24,20 +25,51 @@ function App() {
           <FaLocationDot className="text-white text-lg" />
           <input
             type="text"
-            className="rounded-md p-2 w-full bg-transparent text-white"
-            placeholder="Enter Your Location"
+            className="rounded-md p-2 w-full bg-transparent text-white border-none outline-none"
+            placeholder="Ingresa Tu Ubicación"
           />
           <button className="p-1">
             <FaSearch className="text-white" />
           </button>
         </div>
-        <div id="weather-info" className="flex flex-col items-start justify-center p-4">
+        <div
+          id="weather-info"
+          className="flex flex-col items-center justify-center p-4"
+        >
           <img src={icono} alt="Icono tiempo" className="w-1/3 self-center" />
-          <div className="items-start">
-          <p className="text-white font-semibold text-2xl" id="temp">26<span className="font-bold">ºC</span></p>
-          <p className="text-white text-md" id="info">Nublado</p>
-          <p className="text-white text-md" id="humidity">Humedad: <span className="font-bold">60</span>%</p>
-          <p className="text-white text-md" id="humidity"><FaWind /> 10 km/h</p>
+          <div>
+            <p className="text-gray-800 font-black text-4xl text-center">
+              26 ºC
+            </p>
+            <p
+              className="text-gray-800 text-md font-semibold uppercase text-center"
+              id="info"
+            >
+              Nublado
+            </p>
+            <div
+              className="grid grid-cols-2 container mx-auto gap-6 mt-4"
+              id="container-info"
+            >
+              <div id="humedad" className="flex items-center">
+                <p className="text-gray-800 text-md" id="humidity">
+                  <LuWaves className="text-5xl me-2"/>
+                </p>
+                <div className="flex flex-col justify-center items-start">
+                  <p className="text-gray-800 text-md font-bold">60%</p>
+                  <p className="text-gray-800 text-md">Humedad</p>
+                </div>
+              </div>
+              <div id="humedad" className="flex items-center">
+                <p className="text-gray-800 text-md" id="humidity">
+                  <FaWind className="text-5xl me-2"/>
+                </p>
+                <div className="flex flex-col justify-center items-start">
+                  <p className="text-gray-800 text-md font-bold">10 Km/h</p>
+                  <p className="text-gray-800 text-md">Viento</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
