@@ -18,10 +18,8 @@ import { LuWaves } from "react-icons/lu";
 function App() {
   const [ciudad, setCiudad] = useState('');
   const [pais, setPais] = useState('');
-  console.log(pais)
-  console.log(ciudad)
-  const consultarApi = async datos => {
-    const {ciudad, pais} = datos;
+
+  const consultarApi = async () => {
     
     try {
       const appId = import.meta.env.VITE_API_KEY;
