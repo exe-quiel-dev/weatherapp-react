@@ -11,28 +11,32 @@ import axios from 'axios'
 import icono from "../assets/Weather-icon.png";
 
 // ICONS
-import { FaLocationDot } from "react-icons/fa6";
-import { FaSearch, FaWind } from "react-icons/fa";
+// import { FaLocationDot } from "react-icons/fa6";
+// import { FaSearch, FaWind } from "react-icons/fa";
 import { LuWaves } from "react-icons/lu";
 
 function App() {
-  const [ubicacion, setUbicacion] = useState('');
-  
-  const consultarApi = async () => {
+  const [ciudad, setCiudad] = useState('');
+  const [pais, setPais] = useState('');
+  console.log(pais)
+  console.log(ciudad)
+  const consultarApi = async datos => {
+    const {ciudad, pais} = datos;
+    
     try {
       const appId = import.meta.env.VITE_API_KEY;
-      const url = `http://api.openweathermap.org/geo/1.0/direct?q=${ubicacion}&limit=1&appid=${appId}`; 
-      const {data} = await axios(url);
+      const url = `https://api.openweathermap.org/geo/1.0/direct?q=${ubicacion}&limit=1&appid=${appId}`;
+      const { data } = await axios(url);
       console.log(data)
-      const {lat, lon} = data[0];
-      const urlClima = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${appId}`
-      const {data: clima} = await axios(urlClima)
+      const { lat, lon } = data[0];
+      const urlClima = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=2d3d9f66e234f78add776b546cf6b80a`
+      const { data: clima } = await axios(urlClima)
       console.log(clima)
 
     } catch (error) {
       console.log(error)
     }
-  
+
   }
 
 
@@ -43,22 +47,41 @@ function App() {
         id="weather-box"
       >
         <div
-          className="flex items-center border border-white rounded-full p-2 pb-4"
+          className="flex items-center justify-center pb-4"
           id="search-box"
         >
-          <FaLocationDot className="text-white text-lg" />
-          <input
-            type="text"
-            className="rounded-md p-2 w-full bg-transparent text-white border-none outline-none"
-            placeholder="Ingresa Tu Ubicación"
-            onChange={e => {setUbicacion(e.target.value)}}
-          />
-          <button 
+          {/* <FaLocationDot className="text-white text-lg" /> */}
+          <form
+            className="flex flex-col justify-center gap-4"
+            // onSubmit={}
+          >
+            <input
+              type="text"
+              className="p-2 w-full bg-transparent text-white border rounded-full border-white"
+              placeholder="Ingresa la ciudad"
+              onChange={e => { setCiudad(e.target.value) }}
+            />
+            <select 
+            className="rounded-full bg-transparent border border-white text-white p-2"
+            onChange={e => { setPais(e.target.value) }}
+            >
+              <option value={''} className="text-gray-700 font-bold" >Selecciona un pais</option>
+              <option value={'US'} className="text-gray-700 font-bold" >Estados Unidos</option>
+              <option value={'AR'} className="text-gray-700 font-bold" >Argentina</option>
+              <option value={'MX'} className="text-gray-700 font-bold" >Mexico</option>
+            </select>
+            <input
+            type="submit"
+            value='Buscar'
+            className="cursor-pointer bg-orange-500 rounded-xl font-black uppercase p-2 text-white first-line hover:bg-gray-200 transition-colors text-xl hover:text-gray-600"
+            />
+          </form> 
+          {/* <button
             className="p-1"
             onClick={consultarApi}
           >
             <FaSearch className="text-white" />
-          </button>
+          </button> */}
         </div>
         <div
           id="weather-info"
@@ -81,7 +104,7 @@ function App() {
             >
               <div id="humedad" className="flex items-center">
                 <p className="text-white drop-shadow-lg text-md" id="humidity">
-                  <LuWaves className="text-5xl me-2"/>
+                  <LuWaves className="text-5xl me-2" />
                 </p>
                 <div className="flex flex-col justify-center items-start">
                   <p className="text-white drop-shadow-lg text-md font-bold">60%</p>
@@ -90,7 +113,7 @@ function App() {
               </div>
               <div id="humedad" className="flex items-center">
                 <p className="text-white drop-shadow-lg text-md" id="humidity">
-                  <FaWind className="text-5xl me-2"/>
+                  {/* <FaWind className="text-5xl me-2" /> */}
                 </p>
                 <div className="flex flex-col justify-center items-start">
                   <p className="text-white drop-shadow-lg text-md font-bold">10 Km/h</p>
