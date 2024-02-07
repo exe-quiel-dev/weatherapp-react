@@ -17,22 +17,22 @@ import { LuWaves } from "react-icons/lu";
 
 function App() {
   const [ubicacion, setUbicacion] = useState('');
-  
+
   const consultarApi = async () => {
     try {
       const appId = import.meta.env.VITE_API_KEY;
-      const url = `http://api.openweathermap.org/geo/1.0/direct?q=${ubicacion}&limit=1&appid=${appId}`; 
-      const {data} = await axios(url);
+      const url = `http://api.openweathermap.org/geo/1.0/direct?q=${ubicacion}&limit=1&appid=${appId}`;
+      const { data } = await axios(url);
       console.log(data)
-      const {lat, lon} = data[0];
+      const { lat, lon } = data[0];
       const urlClima = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${appId}`
-      const {data: clima} = await axios(urlClima)
+      const { data: clima } = await axios(urlClima)
       console.log(clima)
 
     } catch (error) {
       console.log(error)
     }
-  
+
   }
 
 
@@ -46,19 +46,27 @@ function App() {
           className="flex items-center border border-white rounded-full p-2 pb-4"
           id="search-box"
         >
-          <FaLocationDot className="text-white text-lg" />
-          <input
-            type="text"
-            className="rounded-md p-2 w-full bg-transparent text-white border-none outline-none"
-            placeholder="Ingresa Tu Ubicación"
-            onChange={e => {setUbicacion(e.target.value)}}
-          />
-          <button 
+          {/* <FaLocationDot className="text-white text-lg" /> */}
+          <form>
+            <input
+              type="text"
+              className="rounded-md p-2 w-full bg-transparent text-white border-none outline-none"
+              placeholder="Ingresa Tu Ubicación"
+              onChange={e => { setUbicacion(e.target.value) }}
+            />
+            <select>
+              <option value=''>Selecciona un pais</option>
+              <option value='US'>Estados Unidos</option>
+              <option value='AR'>Argentina</option>
+              <option value='MX'>Mexico</option>
+            </select>
+          </form>
+          {/* <button
             className="p-1"
             onClick={consultarApi}
           >
             <FaSearch className="text-white" />
-          </button>
+          </button> */}
         </div>
         <div
           id="weather-info"
@@ -81,7 +89,7 @@ function App() {
             >
               <div id="humedad" className="flex items-center">
                 <p className="text-white drop-shadow-lg text-md" id="humidity">
-                  <LuWaves className="text-5xl me-2"/>
+                  <LuWaves className="text-5xl me-2" />
                 </p>
                 <div className="flex flex-col justify-center items-start">
                   <p className="text-white drop-shadow-lg text-md font-bold">60%</p>
@@ -90,7 +98,7 @@ function App() {
               </div>
               <div id="humedad" className="flex items-center">
                 <p className="text-white drop-shadow-lg text-md" id="humidity">
-                  <FaWind className="text-5xl me-2"/>
+                  <FaWind className="text-5xl me-2" />
                 </p>
                 <div className="flex flex-col justify-center items-start">
                   <p className="text-white drop-shadow-lg text-md font-bold">10 Km/h</p>
